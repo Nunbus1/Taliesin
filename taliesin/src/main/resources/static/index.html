@@ -1,11 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taliesin</title>
+
+  <!-- ===================== CSS ===================== -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- ====================== JS ====================== -->
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <!-- Custom Scripts -->
+  <script src="/js/slider_music.js" defer></script>
+  <script src="/js/artist.js" defer></script>
+  <script src="/js/script.js" defer></script>
+  <script src="/js/music_player.js" defer></script>
+  <script src="/js/like.js" defer></script>
 </head>
+
 <body>
-    <h1>Salut</h1>
+  <div class="app-container">
+
+    <!-- ================= Sidebar ================= -->
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://t4.ftcdn.net/jpg/03/03/62/45/360_F_303624505_u0bFT1Rnoj8CMUSs8wMCwoKlnWlh5Jiq.jpg" alt="Profile Picture" class="profile-image" />
+        <p class="username">Karapix</p>
+
+        <nav class="sidebar-menu">
+          <button class="menu-item" id="home-button">Home</button>
+          <button class="menu-item">Favorite</button>
+
+          <div class="search-bar">
+            <input type="text" placeholder="Search..." class="search-input" />
+          </div>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="menu-item">Settings</button>
+        <button class="menu-item">Logout</button>
+      </div>
+    </aside>
+
+    <!-- ================= Main Content ================= -->
+    <main class="main-content">
+
+      <!-- ========== Playlist Section ========== -->
+      <section class="slider-container">
+        <div class="Title">
+          <h1>Musics</h1>
+        </div>
+        <div class="swiper">
+          <div class="swiper-wrapper"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- ========== Artists Section ========== -->
+      <section class="artists">
+        <div class="Title">
+          <h1>Artists</h1>
+        </div>
+        <div class="artist-container containers"></div>
+      </section>
+
+    </main>
+
+    <!-- ================= Right Panel ================= -->
+    <aside class="right-panel">
+
+      <!-- ========== Music Player ========== -->
+      <div class="music-player">
+        <div class="player-top">
+          <input type="range" min="0" max="100" value="50" class="volume-slider" />
+          <button class="like-button">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+
+        <div class="music-image-container">
+          <img alt="cover" class="music-image" src="https://static.vecteezy.com/system/resources/previews/009/380/929/non_2x/record-disk-clipart-design-illustration-free-png.png" />
+        </div>
+
+        <h2 class="music-title"></h2>
+        <p class="music-artist"></p>
+
+        <input type="range" class="progress-bar" value="0" />
+
+        <div class="player-controls">
+          <button class="prev-button">
+            <i class="fa-solid fa-backward"></i>
+          </button>
+          <button class="play-button">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button class="next-button">
+            <i class="fa-solid fa-forward"></i>
+          </button>
+        </div>
+
+        <audio class="audio-player"></audio>
+      </div>
+
+      <!-- ========== Next Songs Section ========== -->
+      <div class="next-songs">
+        <div class="Title">
+          <h1>Next Songs</h1>
+        </div>
+        <div class="song-container"></div>
+      </div>
+
+    </aside>
+  </div>
 </body>
+
 </html>
