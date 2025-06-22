@@ -45,6 +45,7 @@ window.loadTrackFromData = function (music) {
   progressBar.value = 0;
 
   audio.play();
+  console.log(music);
   isPlaying = true;
   playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
   musicImage.style.animationPlayState = "running";
