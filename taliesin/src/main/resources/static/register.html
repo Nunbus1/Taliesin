@@ -4,10 +4,10 @@
    <meta charset="UTF-8" />
   <title>Inscription</title>
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="/css/form.css" />
+  <link rel="stylesheet" href="css/form.css" />
 </head>
 <body>
-  <h2>Créer un compte</h2>
+  <!-- <h2>Créer un compte</h2>
   <form method="post" action="/register" enctype="multipart/form-data">
     <label>Adresse mail :</label>
     <input type="text" name="username" required/><br/>
@@ -21,6 +21,33 @@
     <input type="file" name="picture"><br>
     <button type="submit">S’inscrire</button>
   </form>
-  <a href="login.html">Se connecter</a>
+  <a href="login.html">Se connecter</a> -->
+
+
+  <div class="card">
+    <h2>Créer un compte</h2>
+    <form method="post" action="/register" enctype="multipart/form-data">
+      <label for="email">Adresse mail :</label>
+      <input type="email" id="email" name="username" required>
+
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="first" required>
+
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="last" required>
+
+      <label for="picture">Photo de profil :</label>
+      <input type="file" id="picture" name="picture">
+
+      <button type="submit">S’inscrire</button>
+    </form>
+
+    <div class="link-container">
+      <a href="login.html" class="link">Se connecter</a>
+    </div>
+  </div>
 </body>
 </html>
