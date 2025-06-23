@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 #        Script MySQL.
 #------------------------------------------------------------
-CREATE USER 'taliesin'@'localhost' IDENTIFIED BY 'Romain#BG22';
+CREATE USER 'taliesin'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('Romain#BG22');
     CREATE DATABASE taliesin;
     USE taliesin;
     GRANT ALL PRIVILEGES ON * . * TO 'taliesin'@'localhost';
