@@ -13,7 +13,6 @@ CREATE USER 'taliesin'@'localhost' IDENTIFIED BY 'Romain#BG22';
 
 CREATE TABLE user(
         email    Varchar (50) NOT NULL ,
-        token    Varchar (50) NOT NULL ,
         password Varchar (50) NOT NULL ,
         first    Varchar (20) NOT NULL ,
         last     Varchar (20) NOT NULL ,

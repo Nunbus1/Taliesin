@@ -2,7 +2,7 @@
  * Charge les données des artistes depuis un fichier JSON
  * et génère dynamiquement les éléments HTML correspondants.
  */
-fetch('./data/data.json')
+fetch('http://localhost:8080/api/artists')
     .then((response) => response.json())
     .then((data) => {
         const artistContainer = document.querySelector('.artist-container');
