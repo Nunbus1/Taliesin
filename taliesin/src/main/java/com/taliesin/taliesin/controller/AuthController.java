@@ -4,6 +4,11 @@ import com.taliesin.taliesin.model.User;
 import com.taliesin.taliesin.repository.UserRepository;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,25 +24,28 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired PasswordEncoder encoder;
+
+    private final Path uploadDir = Paths.get("taliesin/src/main/data/profilepicture");
     
     @PostMapping("/register")
     public String handleRegister(@RequestParam String username, @RequestParam String password, @RequestParam String first, @RequestParam String last, @RequestParam(required = false) MultipartFile picture) throws Exception  {
-        String path = null;
+        User user = new User();
+        System.out.println("Chemin absolu uploadDir = " + uploadDir.toAbsolutePath());
         if (picture != null && !picture.isEmpty()) {
-            // Sauvegarder l'image localement (ou cloud)
-            String fileName = "uploads/" + picture.getOriginalFilename();
-            File f = new File("src/main/resources/static/" + fileName);
-            f.getParentFile().mkdirs();
-            picture.transferTo(f);
-            path = "/" + fileName;
+            // Sauvegarder l'image localement 
+            String filename = UUID.randomUUID() + "_" + picture.getOriginalFilename();
+            Path filePath = uploadDir.resolve(filename);
+            Files.copy(picture.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Stocke le chemin relatif en base 
+            user.setPicture("/profilepicture/" + filename);
         }
 
-        User user = new User();
         user.setLast(last);
         user.setFirst(first);
         user.setEmail(username);
         user.setPassword(encoder.encode(password));
-        user.setpicture(path);
+       
 
         userRepository.save(user);
 

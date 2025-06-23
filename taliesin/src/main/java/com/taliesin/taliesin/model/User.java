@@ -5,18 +5,15 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
-
-    private String first;
-    private String last;
-
     @Id
     private String email;  // utilisé comme identifiant
 
     private String password;
+    private String first;
+    private String last;
 
-    private String role = "USER";
-
-    private String picture; // URL ou last de fichier (optionnel)
+    @Column(name = "picture")
+    private String picture;
 
     // Getters et setters
     public String getLast() {
@@ -55,15 +52,7 @@ public class User {
         return picture;
     }
 
-    public void setpicture(String picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

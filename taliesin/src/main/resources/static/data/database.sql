@@ -13,8 +13,7 @@ CREATE USER 'taliesin'@'localhost' IDENTIFIED VIA mysql_native_password USING PA
 
 CREATE TABLE user(
         email    Varchar (50) NOT NULL ,
-        token    Varchar (50) NOT NULL ,
-        password Varchar (50) NOT NULL ,
+        password Varchar (0) NOT NULL ,
         first    Varchar (20) NOT NULL ,
         last     Varchar (20) NOT NULL ,
         picture  Varchar (30)
