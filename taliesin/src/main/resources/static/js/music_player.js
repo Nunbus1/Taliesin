@@ -27,7 +27,7 @@ let history = [];
  *
  * @param {Object} music - Objet contenant les données de la musique.
  * @param {string} music.title - Titre de la chanson.
- * @param {string} music.artist - Nom de l'artiste.
+ * @param {string} music.id_artist - Nom de l'artiste.
  * @param {string} music.src - Chemin du fichier audio.
  * @param {string} music.image - Chemin de l'image de l'album.
  */

@@ -118,7 +118,7 @@ function renderMusicSlides(artist) {
 /**
  * Charge toutes les musiques depuis le fichier JSON et les affiche dans le slider.
  */
-function loadAllMusics() {
+function loadAllMusics(search="") {
     fetch("http://localhost:8080/api/artists")
         .then((response) => response.json())
         .then((data) => {
@@ -127,6 +127,28 @@ function loadAllMusics() {
             shownIds.clear();
 
             data.forEach((artist) => {
+                // si le champ de recherche n'est pas nul, on filtre les artistes et musiques qui contiennent le texte voulu 
+                if (search != ""){
+                    const filteredMusics = artist.musics.filter(music =>
+                        music.title.toLowerCase().includes(search) ||
+                        artist.name.toLowerCase().includes(search)
+                    );
+                    console.log(filteredMusics);
+
+                    // si la recherche a des résultats, on remplace la liste de toutes les musiques par les résultats 
+                    if (filteredMusics.length > 0) {
+                        const artistCopy = {
+                            ...artist,
+                            musics: filteredMusics
+                        };
+
+                        // suppression des sliders de toutes les musiques et création des sliders pour les résultats
+                        wrapper.innerHTML = "";
+                        createMusicSlide(artistCopy);
+                        return;
+                    }
+                    
+                }
                 createMusicSlide(artist);
             });
 
