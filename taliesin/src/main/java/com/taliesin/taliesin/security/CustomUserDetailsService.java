@@ -1,7 +1,7 @@
-package com.taliesin.taliesin.service;
+package com.taliesin.taliesin.security;
 
-import com.taliesin.taliesin.model.User;
-import com.taliesin.taliesin.repository.UserRepository;
+import com.taliesin.taliesin.user.User;
+import com.taliesin.taliesin.user.UserRepository;
 
 import jakarta.annotation.PostConstruct;
 

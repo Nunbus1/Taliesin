@@ -1,4 +1,4 @@
-package com.taliesin.taliesin.model;
+package com.taliesin.taliesin.user;
 
 import jakarta.persistence.*;
 
