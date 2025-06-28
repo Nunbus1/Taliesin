@@ -1,50 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-   <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <title>Inscription</title>
-  <!-- Custom Styles -->
+
+  <!-- ========== Styles ========== -->
   <link rel="stylesheet" href="css/form.css" />
 </head>
+
 <body>
-  <!-- <h2>Créer un compte</h2>
-  <form method="post" action="/register" enctype="multipart/form-data">
-    <label>Adresse mail :</label>
-    <input type="text" name="username" required/><br/>
-    <label>Mot de passe :</label>
-    <input type="password" name="password" required/><br/>
-    <label>Pénom :</label>
-    <input type="text" name="first" required>
-    <label>Nom :</label>
-    <input type="text" name="last" required><br>
-    <label>Photo de profil :</label>
-    <input type="file" name="picture"><br>
-    <button type="submit">S’inscrire</button>
-  </form>
-  <a href="login.html">Se connecter</a> -->
-
-
+  <!-- ========== Carte d'inscription ========== -->
   <div class="card">
     <h2>Créer un compte</h2>
+
+    <!-- Formulaire d'inscription -->
     <form method="post" action="/register" enctype="multipart/form-data">
       <label for="email">Adresse mail :</label>
-      <input type="email" id="email" name="username" required>
+      <input type="email" id="email" name="username" required />
 
       <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password" required />
 
       <label for="prenom">Prénom :</label>
-      <input type="text" id="prenom" name="first" required>
+      <input type="text" id="prenom" name="first" required />
 
       <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="last" required>
+      <input type="text" id="nom" name="last" required />
 
       <label for="picture">Photo de profil :</label>
-      <input type="file" id="picture" name="picture">
+      <input type="file" id="picture" name="picture" />
 
       <button type="submit">S’inscrire</button>
     </form>
 
+    <!-- Lien vers la page de connexion -->
     <div class="link-container">
       <a href="login.html" class="link">Se connecter</a>
     </div>

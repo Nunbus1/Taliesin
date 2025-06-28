@@ -12,6 +12,7 @@ const nextSongsContainer = document.querySelector(".next-songs .song-container")
 const shownIds = new Set();
 const homeButton = document.getElementById("home-button");
 const containers = document.querySelectorAll(".containers");
+const favoriteButton = document.getElementById("home-favorite");
 
 // ==========================
 // Initialisation
@@ -19,6 +20,9 @@ const containers = document.querySelectorAll(".containers");
 document.addEventListener("DOMContentLoaded", () => {
     loadAllMusics();
 });
+
+const mainLikeButton = document.querySelector(".main-like-button");
+if (mainLikeButton) bindLikeButton(mainLikeButton);
 
 homeButton.addEventListener("click", loadAllMusics);
 
@@ -81,7 +85,14 @@ function addToQueue(music, artist) {
         src: music.src,
         image: music.image,
         duration: music.duration,
+        liked: music.liked
     });
+
+    song.dataset.id = music.id;
+
+    song.dataset.music = JSON.stringify(music);
+
+    const isLiked = music.liked === true;
 
     song.innerHTML = `
         <div class="song-img">
@@ -93,8 +104,8 @@ function addToQueue(music, artist) {
             <p>${artist.name}</p>
         </div>
         <span>${music.duration}</span>
-        <button class="like-button">
-            <i class="fa-regular fa-heart"></i>
+        <button class="like-button ${isLiked ? 'liked' : ''}" data-id="${music.id}">
+            <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
         </button>
     `;
 
@@ -103,6 +114,7 @@ function addToQueue(music, artist) {
     const likeButton = song.querySelector(".like-button");
     if (likeButton) bindLikeButton(likeButton);
 }
+
 
 /**
  * Affiche uniquement les musiques d'un artiste donné dans le slider.
@@ -118,7 +130,7 @@ function renderMusicSlides(artist) {
 /**
  * Charge toutes les musiques depuis le fichier JSON et les affiche dans le slider.
  */
-function loadAllMusics(search="") {
+function loadAllMusics(search = "") {
     fetch("http://localhost:8080/api/artists")
         .then((response) => response.json())
         .then((data) => {
@@ -128,12 +140,11 @@ function loadAllMusics(search="") {
 
             data.forEach((artist) => {
                 // si le champ de recherche n'est pas nul, on filtre les artistes et musiques qui contiennent le texte voulu 
-                if (search != ""){
+                if (search != "") {
                     const filteredMusics = artist.musics.filter(music =>
                         music.title.toLowerCase().includes(search) ||
                         artist.name.toLowerCase().includes(search)
                     );
-                    console.log(filteredMusics);
 
                     // si la recherche a des résultats, on remplace la liste de toutes les musiques par les résultats 
                     if (filteredMusics.length > 0) {
@@ -147,7 +158,7 @@ function loadAllMusics(search="") {
                         createMusicSlide(artistCopy);
                         return;
                     }
-                    
+
                 }
                 createMusicSlide(artist);
             });
@@ -167,6 +178,27 @@ function loadAllMusics(search="") {
             }
         });
 }
+
+/**
+ * Affiche uniquement les musiques likées par l'utilisateur.
+ * Réinitialise l'affichage du slider et recharge les slides avec les musiques favorites.
+ */
+favoriteButton.addEventListener("click", () => {
+    wrapper.innerHTML = "";
+    shownIds.clear();
+
+    const favoriteMusics = fullData
+        .map(artist => {
+            const likedMusics = artist.musics.filter(music => music.liked);
+            return likedMusics.length > 0 ? { ...artist, musics: likedMusics } : null;
+        })
+        .filter(Boolean);
+
+    favoriteMusics.forEach(createMusicSlide);
+
+    if (window.swiper) window.swiper.update();
+});
+
 
 // ==========================
 // SwiperJS Configuration
