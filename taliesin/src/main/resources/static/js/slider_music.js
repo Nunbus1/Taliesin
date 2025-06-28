@@ -85,10 +85,12 @@ function addToQueue(music, artist) {
         src: music.src,
         image: music.image,
         duration: music.duration,
-        liked: music.liked 
+        liked: music.liked
     });
 
     song.dataset.id = music.id;
+
+    song.dataset.music = JSON.stringify(music);
 
     const isLiked = music.liked === true;
 
@@ -128,7 +130,7 @@ function renderMusicSlides(artist) {
 /**
  * Charge toutes les musiques depuis le fichier JSON et les affiche dans le slider.
  */
-function loadAllMusics(search="") {
+function loadAllMusics(search = "") {
     fetch("http://localhost:8080/api/artists")
         .then((response) => response.json())
         .then((data) => {
@@ -138,7 +140,7 @@ function loadAllMusics(search="") {
 
             data.forEach((artist) => {
                 // si le champ de recherche n'est pas nul, on filtre les artistes et musiques qui contiennent le texte voulu 
-                if (search != ""){
+                if (search != "") {
                     const filteredMusics = artist.musics.filter(music =>
                         music.title.toLowerCase().includes(search) ||
                         artist.name.toLowerCase().includes(search)
@@ -156,7 +158,7 @@ function loadAllMusics(search="") {
                         createMusicSlide(artistCopy);
                         return;
                     }
-                    
+
                 }
                 createMusicSlide(artist);
             });
@@ -182,19 +184,19 @@ function loadAllMusics(search="") {
  * Réinitialise l'affichage du slider et recharge les slides avec les musiques favorites.
  */
 favoriteButton.addEventListener("click", () => {
-  wrapper.innerHTML = "";
-  shownIds.clear();
+    wrapper.innerHTML = "";
+    shownIds.clear();
 
-  const favoriteMusics = fullData
-    .map(artist => {
-      const likedMusics = artist.musics.filter(music => music.liked);
-      return likedMusics.length > 0 ? { ...artist, musics: likedMusics } : null;
-    })
-    .filter(Boolean);
+    const favoriteMusics = fullData
+        .map(artist => {
+            const likedMusics = artist.musics.filter(music => music.liked);
+            return likedMusics.length > 0 ? { ...artist, musics: likedMusics } : null;
+        })
+        .filter(Boolean);
 
-  favoriteMusics.forEach(createMusicSlide);
+    favoriteMusics.forEach(createMusicSlide);
 
-  if (window.swiper) window.swiper.update();
+    if (window.swiper) window.swiper.update();
 });
 
 

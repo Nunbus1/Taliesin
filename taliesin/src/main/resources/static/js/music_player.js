@@ -32,6 +32,7 @@ let history = [];
  * @param {string} music.image - Chemin de l'image de l'album.
  */
 window.loadTrackFromData = function (music) {
+  updateLikeButtonsState(music.id, music.liked);
   const last = history[history.length - 1];
   if (!last || last.src !== music.src) {
     history.push(music);
@@ -87,20 +88,50 @@ window.playNextFromQueue = function () {
 };
 
 /**
- * Lit la piste précédente depuis l'historique d'écoute.
+ * Lit la piste précédente depuis l'historique d'écoute
+ * et remet la piste actuelle au début de la file "next".
  */
 function playPreviousFromHistory() {
   if (history.length <= 1) return;
 
-  // Supprime la musique actuelle
-  history.pop();
-
-  // Récupère la précédente
+  const current = history.pop(); // Supprime la musique actuelle
   const previous = history[history.length - 1];
+
   if (previous) {
+    // Ajouter l'actuelle tout en haut de la file d'attente
+    const nextSongsContainer = document.querySelector(".next-songs .song-container");
+    const song = document.createElement("div");
+    song.classList.add("song");
+
+    song.dataset.id = current.id;
+    song.dataset.music = JSON.stringify(current);
+
+    song.innerHTML = `
+      <div class="song-img">
+        <img src="${current.image}" alt="album cover">
+        <div class="overlay"><i class="fa-solid fa-play"></i></div>
+      </div>
+      <div class="song-title">
+        <h2>${current.title}</h2>
+        <p>${current.artist}</p>
+      </div>
+      <span>${current.duration}</span>
+      <button class="like-button">
+        <i class="fa-${current.liked ? 'solid' : 'regular'} fa-heart"></i>
+      </button>
+    `;
+
+    // Ajout au début de la file
+    nextSongsContainer.insertBefore(song, nextSongsContainer.firstChild);
+
+    // Ajoute le bouton like avec son état
+    addLikeButton(song, current.liked);
+
+    // Charge la piste précédente
     window.loadTrackFromData(previous);
   }
 }
+
 
 /**
  * Met en pause ou reprend la lecture selon l'état actuel.

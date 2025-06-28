@@ -31,7 +31,7 @@ function bindLikeButton(button) {
       .then(updatedMusic => {
         // Mets à jour tous les boutons visibles
         updateLikeButtonsState(updatedMusic.id, updatedMusic.liked);
-
+        
         // Mets à jour les données internes (fullData)
         fullData.forEach(artist => {
           artist.musics.forEach(music => {
@@ -74,6 +74,19 @@ function updateLikeButtonsState(musicId, isLiked) {
     icon.classList.toggle("fa-solid", isLiked);
     icon.classList.toggle("fa-regular", !isLiked);
   }
+
+  // Mise à jour des datasets data-music pour garder liked à jour
+  document.querySelectorAll(`[data-id="${musicId}"]`).forEach(el => {
+    if (el.dataset.music) {
+      try {
+        const musicData = JSON.parse(el.dataset.music);
+        musicData.liked = isLiked;
+        el.dataset.music = JSON.stringify(musicData);
+      } catch (e) {
+        console.error("Erreur lors de la mise à jour de data-music :", e);
+      }
+    }
+  });
 }
 
 
@@ -102,3 +115,27 @@ function addLikeButton(parentElement, isLiked) {
 
 // Initialisation des boutons existants
 document.querySelectorAll(".like-button").forEach(bindLikeButton);
+
+
+document.querySelector(".main-like-button").addEventListener("click", () => {
+  const button = document.querySelector(".main-like-button");
+  const id = button.dataset.id;
+
+  if (!id) return;
+
+  fetch(`http://localhost:8080/api/music/${id}/liked`, {
+    method: "PUT"
+  })
+  .then(res => res.json())
+  .then(updatedMusic => {
+    updateLikeButtonsState(updatedMusic.id, updatedMusic.liked);
+    fullData.forEach(artist => {
+      artist.musics.forEach(music => {
+        if (music.id === updatedMusic.id) {
+          music.liked = updatedMusic.liked;
+        }
+      });
+    });
+  })
+  .catch(e => console.error("Erreur lors du like :", e));
+});
