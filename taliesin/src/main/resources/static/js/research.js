@@ -1,6 +1,8 @@
-var research = document.getElementById('search')
+/**
+ * Déclenche la recherche de musiques à chaque saisie dans le champ de recherche.
+ */
+const searchInput = document.getElementById('search');
 
-research.addEventListener('input', (e) => {
-    console.log(e);
-    loadAllMusics(research.value);
-})
+searchInput.addEventListener('input', (e) => {
+  loadAllMusics(searchInput.value);
+});

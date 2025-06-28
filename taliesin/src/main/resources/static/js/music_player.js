@@ -45,10 +45,23 @@ window.loadTrackFromData = function (music) {
   progressBar.value = 0;
 
   audio.play();
-  console.log(music);
   isPlaying = true;
   playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
   musicImage.style.animationPlayState = "running";
+
+  const mainLikeButton = document.querySelector(".main-like-button");
+  mainLikeButton.setAttribute("data-id", music.id);
+
+  const icon = mainLikeButton.querySelector("i");
+  if (music.liked) {
+    mainLikeButton.classList.add("liked");
+    icon.classList.remove("fa-regular");
+    icon.classList.add("fa-solid");
+  } else {
+    mainLikeButton.classList.remove("liked");
+    icon.classList.remove("fa-solid");
+    icon.classList.add("fa-regular");
+  }
 };
 
 /**
@@ -67,8 +80,9 @@ window.playNextFromQueue = function () {
   try {
     const music = JSON.parse(musicData);
     window.loadTrackFromData(music);
+
   } catch (_) {
-    // Parsing échoué, silence volontaire
+    console.warn("Erreur lors du parsing JSON ou de la mise à jour du like.");
   }
 };
 
@@ -77,9 +91,15 @@ window.playNextFromQueue = function () {
  */
 function playPreviousFromHistory() {
   if (history.length <= 1) return;
+
+  // Supprime la musique actuelle
   history.pop();
+
+  // Récupère la précédente
   const previous = history[history.length - 1];
-  if (previous) window.loadTrackFromData(previous);
+  if (previous) {
+    window.loadTrackFromData(previous);
+  }
 }
 
 /**
