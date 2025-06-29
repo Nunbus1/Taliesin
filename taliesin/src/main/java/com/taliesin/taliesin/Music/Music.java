@@ -1,4 +1,4 @@
-package com.taliesin.taliesin.Music;
+package com.taliesin.taliesin.Music; 
 
 import com.taliesin.taliesin.artist.Artist;
 import jakarta.persistence.*;

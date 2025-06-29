@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.*;
  * Configuration Spring MVC personnalisée.
  * Permet de servir des fichiers statiques (images de profil) depuis un dossier local.
  */
-@Configuration
+@Configuration 
 public class WebConfig implements WebMvcConfigurer {
 
     /**

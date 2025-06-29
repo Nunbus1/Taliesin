@@ -1,4 +1,4 @@
-package com.taliesin.taliesin.Music;
+package com.taliesin.taliesin.Music; 
 
 /**
  * DTO (Data Transfer Object) représentant une musique.

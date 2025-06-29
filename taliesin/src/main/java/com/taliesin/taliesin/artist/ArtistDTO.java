@@ -1,4 +1,4 @@
-package com.taliesin.taliesin.artist;
+package com.taliesin.taliesin.artist; 
 
 import java.util.List;
 import java.util.stream.Collectors;
