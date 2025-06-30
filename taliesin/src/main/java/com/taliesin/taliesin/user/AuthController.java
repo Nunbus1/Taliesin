@@ -3,11 +3,11 @@ package com.taliesin.taliesin.user;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +26,12 @@ public class AuthController {
     @Autowired
     private PasswordEncoder encoder;
 
-    private final Path uploadDir = Paths.get("taliesin/src/main/data/profilepicture");
+     /**
+     * Dossier où sont enregistrées les photos de profil.
+     * Configuré via la propriété {@code profile.picture.dir}.
+     */
+    @Value("${profile.picture.dir}")
+    private Path uploadDir;
 
     /**
      * Traite la requête POST d'enregistrement d'un nouvel utilisateur.

@@ -1,5 +1,6 @@
 package com.taliesin.taliesin.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -11,6 +12,14 @@ import org.springframework.web.servlet.config.annotation.*;
 public class WebConfig implements WebMvcConfigurer {
 
     /**
+     * Répertoire des images de profil, défini dans
+     * {@code application.properties} via la propriété
+     * {@code profile.picture.dir}.
+     */
+    @Value("${profile.picture.dir}")
+    private String profilePictureDir;
+
+    /**
      * Configure un gestionnaire de ressources pour servir les images de profil.
      *
      * @param registry le registre de gestion des ressources
@@ -19,6 +28,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
             .addResourceHandler("/profilepicture/**")
-            .addResourceLocations("file:taliesin/src/main/data/profilepicture/");
+            .addResourceLocations("file:" + profilePictureDir + "/");
     }
 }

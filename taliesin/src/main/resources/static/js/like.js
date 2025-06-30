@@ -24,7 +24,7 @@ function bindLikeButton(button) {
 
     if (!id) return;
 
-    fetch(`http://localhost:8080/api/music/${id}/liked`, {
+    fetch(`/api/music/${id}/liked`, {
       method: "PUT"
     })
       .then(res => res.json())
@@ -123,7 +123,7 @@ document.querySelector(".main-like-button").addEventListener("click", () => {
 
   if (!id) return;
 
-  fetch(`http://localhost:8080/api/music/${id}/liked`, {
+  fetch(`/api/music/${id}/liked`, {
     method: "PUT"
   })
   .then(res => res.json())

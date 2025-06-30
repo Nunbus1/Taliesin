@@ -131,7 +131,7 @@ function renderMusicSlides(artist) {
  * Charge toutes les musiques depuis le fichier JSON et les affiche dans le slider.
  */
 function loadAllMusics(search = "") {
-    fetch("http://localhost:8080/api/artists")
+    fetch("/api/artists")
         .then((response) => response.json())
         .then((data) => {
             fullData = data;

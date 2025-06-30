@@ -8,7 +8,7 @@ import java.util.Optional;
  * Repository JPA pour l'entité {@link User}.
  * Fournit les opérations CRUD et une méthode de recherche par email.
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     /**
      * Recherche un utilisateur par son adresse email.

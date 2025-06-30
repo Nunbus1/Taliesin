@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/music")
-@CrossOrigin(origins = "*") // Autorise toutes les origines pour le frontend
+@CrossOrigin(origins = "${app.cors.allowed-origin}")    
 public class MusicController {
 
     @Autowired
